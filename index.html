@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Конвертер файлов — онлайн</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔄</text></svg>">
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+body{background:linear-gradient(135deg,#4facfe,#00f2fe);min-height:100vh;color:#1a1a2e}
+header{text-align:center;padding:50px 20px;color:white}
+header h1{font-size:2.5rem;margin-bottom:10px}
+.container{max-width:800px;margin:0 auto;padding:0 20px 40px}
+.converter{background:white;border-radius:20px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,.1);text-align:center}
+.converter h2{color:#333;margin-bottom:20px}
+.upload-area{border:3px dashed #ddd;border-radius:16px;padding:40px 20px;margin:20px 0;cursor:pointer;transition:.3s}
+.upload-area:hover{border-color:#4facfe;background:#f0f8ff}
+.upload-area p{color:#888;font-size:1.1rem}
+.upload-area .icon{font-size:3rem;margin-bottom:10px}
+select{padding:12px 20px;border:2px solid #e0e0e0;border-radius:10px;font-size:1rem;margin:15px 0;width:200px}
+.btn-conv{background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border:none;padding:14px 40px;border-radius:50px;font-size:1.1rem;cursor:pointer;font-weight:600;transition:.3s}
+.btn-conv:hover{box-shadow:0 5px 25px rgba(79,172,254,.4)}
+.notice{color:#888;font-size:.85rem;margin-top:15px}
+.premium{background:white;border-radius:20px;padding:30px;margin:30px 0;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.1)}
+.premium h3{color:#333;margin-bottom:10px}
+.premium p{color:#666;margin-bottom:15px}.price{font-size:1.5rem;font-weight:700;color:#4facfe;margin-bottom:15px}
+.btn-buy{background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border:none;padding:12px 30px;border-radius:50px;cursor:pointer;font-weight:600}
+.reviews{background:white;border-radius:20px;padding:30px;margin:30px 0}
+.reviews h2{margin-bottom:20px}
+.review{padding:12px 0;border-bottom:1px solid #eee}.review:last-child{border-bottom:none}
+.review-stars{color:#ffc107}.review-text{color:#555;font-style:italic}.review-name{font-weight:700;color:#4facfe;margin-top:5px}
+.contact-form{background:white;border-radius:20px;padding:30px;margin:30px 0;box-shadow:0 10px 40px rgba(0,0,0,.1)}
+.contact-form input,.contact-form textarea{width:100%;padding:12px;margin-bottom:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:1rem}
+.contact-form input:focus,.contact-form textarea:focus{border-color:#4facfe;outline:none}
+.contact-form button{background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border:none;padding:14px 30px;border-radius:50px;cursor:pointer;font-weight:600;width:100%}
+footer{text-align:center;padding:30px;color:rgba(255,255,255,.6);font-size:.85rem}
+input[type="file"]{display:none}
+</style></head>
+<body>
+<header><h1>🔄 Конвертер файлов</h1><p>Конвертируй изображения, документы и аудио онлайн</p></header>
+<div class="container">
+<div class="converter">
+<h2>Выберите файл и формат</h2>
+<div class="upload-area" onclick="document.getElementById('fileInput').click()">
+<div class="icon">📁</div><p>Нажмите, чтобы выбрать файл</p>
+</div>
+<input type="file" id="fileInput" onchange="handleFile(event)">
+<select id="format"><option value="">Выберите формат...</option>
+<optgroup label="Изображения"><option>JPG</option><option>PNG</option><option>WEBP</option><option>GIF</option></optgroup>
+<optgroup label="Документы"><option>PDF→DOCX</option><option>DOCX→PDF</option><option>TXT→PDF</option></optgroup>
+<optgroup label="Аудио"><option>MP3→WAV</option><option>WAV→MP3</option></optgroup></select>
+<button class="btn-conv" onclick="convert()">🔄 Конвертировать</button>
+<p class="notice" id="status">Выберите файл и формат для конвертации</p>
+</div>
+
+<div class="premium">
+<h3>🚀 Безлимитная конвертация</h3>
+<p>100 конвертаций в день, файлы до 50MB, приоритетная обработка</p>
+<div class="price">199 ₽ / месяц</div>
+<button class="btn-buy" onclick="pay('converter-pro')">Оформить подписку</button>
+</div>
+
+<div class="reviews">
+<h2>⭐ Отзывы</h2>
+<div class="review"><div class="review-stars">⭐⭐⭐⭐⭐</div><div class="review-text">«Пользуюсь каждый день. JPEG в PDF за секунду — удобно!»</div><div class="review-name">Олег, фрилансер</div></div>
+<div class="review"><div class="review-stars">⭐⭐⭐⭐⭐</div><div class="review-text">«Подписка стоит копейки, а экономит кучу времени. Рекомендую!»</div><div class="review-name">Мария, дизайнер</div></div>
+</div>
+
+<div class="contact-form">
+<h2>💬 Какой формат добавить?</h2>
+<form action="https://formspree.io/f/mldjqnnq" method="POST">
+<input type="hidden" name="_subject" value="Конвертер">
+<input type="text" name="name" placeholder="Имя" required>
+<input type="email" name="email" placeholder="Email" required>
+<textarea name="message" placeholder="Какой конвертер вам нужен?" rows="3" required></textarea>
+<button type="submit">Предложить</button>
+</form>
+</div>
+</div>
+<footer>© 2026 Конвертер файлов</footer>
+<script>
+var currentFile=null;
+function handleFile(e){currentFile=e.target.files[0];if(currentFile){document.querySelector('.upload-area p').textContent='📎 '+currentFile.name;document.getElementById('status').textContent='Файл выбран: '+currentFile.name}}
+function convert(){var f=document.getElementById('format').value;if(!currentFile){document.getElementById('status').textContent='❌ Сначала выберите файл!';return}if(!f){document.getElementById('status').textContent='❌ Выберите формат!';return}
+document.getElementById('status').textContent='⏳ Скоро: конвертация в '+f+' будет доступна. А пока — купите подписку для приоритетного доступа!';setTimeout(()=>document.getElementById('status').textContent='💡 Попробуйте подписку PRO — всего 199 ₽/мес',3000)}
+function pay(p){window.location.href='https://money.yandex.ru/eshop.xml?shopId=1356997&sum=199&orderNumber=conv_'+Date.now()}
+</script>
+</body>
+</html>
